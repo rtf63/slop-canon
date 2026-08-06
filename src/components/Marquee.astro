@@ -1,0 +1,19 @@
+---
+import { issueLabel, longDate } from '../lib/format';
+interface Props { issue: number; date: Date; writtenAt: string; }
+const { issue, date, writtenAt } = Astro.props;
+const bits = [
+  `ISSUE ${issueLabel(issue)}`,
+  longDate(date),
+  `written at ${writtenAt}`,
+  'one poem, informed by the news',
+  'no ads, no streaks, no doomscroll',
+];
+// duplicate the run so the -50% scroll keeps a seamless loop
+const run = [...bits, ...bits];
+---
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    {run.map((b) => (<><span class="star">✷</span><span>{b}</span></>))}
+  </div>
+</div>

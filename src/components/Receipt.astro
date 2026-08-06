@@ -1,0 +1,20 @@
+---
+import { issueLabel } from '../lib/format';
+interface Props {
+  issue: number;
+  provenance: { madeBy: string; writtenAt: string; saw: string[] };
+}
+const { issue, provenance } = Astro.props;
+---
+<div class="label-wrap" style="margin-top:28px">
+  <div class="receipt">
+    <h4>WHERE IT CAME FROM</h4>
+    <div class="row"><span>made by</span><span>{provenance.madeBy}</span></div>
+    <div class="row"><span>written</span><span>{provenance.writtenAt}</span></div>
+    <div class="saw">
+      <div>what it saw first ▸</div>
+      {provenance.saw.map((s) => (<div>· {s}</div>))}
+    </div>
+    <div class="stamp">✷ CANON {issueLabel(issue)} ✷</div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+---
+import { issueLabel } from '../lib/format';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { entry: CollectionEntry<'entries'>; }
+const { entry } = Astro.props;
+const { issue, poem, provenance } = entry.data;
+---
+{/* data-weather drives the palette-drain scope (see global.css heavy-day rules) */}
+<article class="poem-card" data-weather={entry.data.weather}>
+  <span class="issue-tag" title={`Issue ${issueLabel(issue)}`}>{issueLabel(issue)} ✎</span>
+  <div class="poem">{poem}<span class="by">— written by {provenance.madeBy}</span></div>
+</article>

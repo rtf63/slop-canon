@@ -1,0 +1,36 @@
+---
+// The landing hero. The rotating audience word is progressive enhancement:
+// it degrades to the first word with JS off or reduced-motion on.
+---
+<div class="hero">
+  <svg class="doodle d-a" viewBox="0 0 60 60" aria-hidden="true"><g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"><path d="M30 8 v10 M30 42 v10 M8 30 h10 M42 30 h10 M14 14 l7 7 M46 46 l-7-7 M46 14 l-7 7 M14 46 l7-7"/><circle cx="30" cy="30" r="9" fill="var(--yellow)"/></g></svg>
+  <svg class="doodle d-b" viewBox="0 0 60 60" aria-hidden="true"><g fill="var(--pink)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"><path d="M30 6 l6 16 17 1 -13 11 5 16 -15-9 -15 9 5-16 -13-11 17-1Z"/></g></svg>
+  <div class="wrap hero-inner">
+    <span class="kick"><span class="live"></span>TODAY'S POEM IS LIVE</span>
+    <h1 class="head">A poem a day for <span class="rot" id="rot">the terminally online</span></h1>
+    <p class="sub">Every morning a machine writes one poem, informed by the day's news. <em>That's the whole website.</em></p>
+    <div class="hero-cta">
+      <a href="#subscribe" class="btn pink">Get it in your inbox →</a>
+      <a href="#todays-drop" class="btn">Read today's ↓</a>
+    </div>
+    <p class="hero-note">free daily · one small thing each morning · leave whenever</p>
+  </div>
+</div>
+
+<script>
+  // rotating hero audience — progressive enhancement, respects reduced-motion
+  (function () {
+    var words = ['the terminally online', 'the overwhelmed', 'the doomscrollers', 'the tender-hearted', 'the tired', 'everyone still awake'];
+    var node = document.getElementById('rot');
+    if (!node) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var el = node; // non-null; keeps narrowing inside the closures below
+    var i = 0;
+    el.style.transition = 'opacity .22s ease';
+    setInterval(function () {
+      i = (i + 1) % words.length;
+      el.style.opacity = '0';
+      setTimeout(function () { el.textContent = words[i]; el.style.opacity = '1'; }, 220);
+    }, 2600);
+  })();
+</script>

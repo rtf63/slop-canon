@@ -1,0 +1,17 @@
+---
+// Subscribe surface. TODO(M3): wire the form action to the Substack hosted
+// subscribe endpoint (or embed). No billing/credentials handled here.
+---
+<section id="subscribe" class="wrap">
+  <div class="subscribe">
+    <svg class="sub-doodle sd1" viewBox="0 0 60 60" aria-hidden="true"><g fill="var(--yellow)" stroke="var(--cream)" stroke-width="3" stroke-linejoin="round"><circle cx="30" cy="30" r="16"/><path d="M30 14v32M14 30h32" stroke="var(--cream)"/></g></svg>
+    <svg class="sub-doodle sd2" viewBox="0 0 60 60" aria-hidden="true"><g fill="var(--pink)" stroke="var(--cream)" stroke-width="3" stroke-linejoin="round"><path d="M30 8 l6 16 17 1 -13 11 5 16 -15-9 -15 9 5-16 -13-11 17-1Z"/></g></svg>
+    <h2>Tomorrow's poem, in your inbox</h2>
+    <p>One poem, written fresh at dawn, informed by the day's news. It just arrives — then it's done. <em style="font-family:var(--serif)">We email like the internet forgot how to: gently.</em></p>
+    <form class="sub-form" method="post" action="#" aria-label="Subscribe by email">
+      <input type="email" name="email" placeholder="you@somewhere.online" aria-label="Email" required />
+      <button type="submit" class="btn">Subscribe ✷</button>
+    </form>
+    <div class="sub-fine">free daily · paid tier unlocks the full archive + print discounts · no streaks, ever</div>
+  </div>
+</section>

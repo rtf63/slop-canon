@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import Marquee from '../components/Marquee.astro';
+import Hero from '../components/Hero.astro';
+import EntryPlate from '../components/EntryPlate.astro';
+import Receipt from '../components/Receipt.astro';
+import SubscribeBlock from '../components/SubscribeBlock.astro';
+import PrintsBlock from '../components/PrintsBlock.astro';
+import { getEntries } from '../lib/entries';
+import { TIP_URL, TIP_LABEL } from '../lib/site';
+
+// Day one: a single entry, no archive yet.
+const entries = await getEntries();
+const today = entries[0].entry;
+---
+<Base
+  nav="today"
+  description={`Today's poem: ${today.data.title}. ${today.data.caption}`}
+>
+  <Marquee slot="marquee" issue={today.data.issue} date={today.data.date} writtenAt={today.data.provenance.writtenAt} />
+
+  <Hero />
+
+  <!-- ===== TODAY'S DROP ===== -->
+  <section class="wrap" id="todays-drop">
+    <div class="band-label" data-weather={today.data.weather}>
+      <span class="txt">Today the machine wrote about…</span>
+      <span class="rule"></span>
+      <span class="chip pink">{today.data.dreamTheme}</span>
+    </div>
+
+    <EntryPlate entry={today} />
+    <Receipt issue={today.data.issue} provenance={today.data.provenance} />
+
+    <p class="tip-line">
+      This is day one — there's just today, and there'll be one more tomorrow.
+      If it's worth something to you, you can <a href={TIP_URL} target="_blank" rel="noopener">{TIP_LABEL} ☕</a>.
+    </p>
+  </section>
+
+  <!-- ===== ARCHIVE (subscribers only) ===== -->
+  <section id="archive" class="wrap">
+    <div class="band-label">
+      <span class="txt">The Archive</span>
+      <span class="rule"></span>
+      <span class="chip blue">subscribers only ★</span>
+    </div>
+    <div class="archive-locked">
+      <div class="lock-mark" aria-hidden="true">★</div>
+      <p>Every poem the machine has ever written is kept in the archive.
+        To wander back through the past days, <a href="#subscribe">you'll need to be a subscriber</a> —
+        it's the one place the whole back-catalogue lives.</p>
+      <a href="#subscribe" class="btn blue">Subscribe to unlock the archive →</a>
+    </div>
+  </section>
+
+  <PrintsBlock />
+
+  <SubscribeBlock />
+</Base>
+
+<style>
+  .tip-line{
+    max-width:52ch;margin:40px auto 0;text-align:center;
+    font-family:var(--serif);font-style:italic;font-size:18px;color:#4a4136;line-height:1.6;
+  }
+  .tip-line a{font-style:normal;font-family:var(--mono);font-size:13px;font-weight:700;
+    color:var(--ink);text-decoration:none;border-bottom:2px solid var(--yellow);white-space:nowrap}
+  .tip-line a:hover{border-color:var(--pink)}
+
+  .archive-locked{
+    border:var(--edge);border-radius:16px;background:#efe9dd;box-shadow:var(--shadow);
+    padding:40px 30px;text-align:center;
+    background-image:repeating-linear-gradient(45deg,transparent 0 22px,rgba(36,29,22,.03) 22px 44px);
+  }
+  .archive-locked .lock-mark{font-size:34px;color:var(--blue);margin-bottom:8px}
+  .archive-locked p{max-width:52ch;margin:0 auto 22px;font-size:16px;color:#4a4136;line-height:1.7}
+  .archive-locked a:not(.btn){color:var(--ink);border-bottom:2px solid var(--yellow);text-decoration:none}
+  .archive-locked a:not(.btn):hover{border-color:var(--pink)}
+</style>

@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import Marquee from '../../components/Marquee.astro';
+import EntryPlate from '../../components/EntryPlate.astro';
+import Receipt from '../../components/Receipt.astro';
+import { getEntries } from '../../lib/entries';
+import { issueLabel, issueSlug, dayLabel } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const entries = await getEntries();
+  return entries.map(({ entry }) => ({
+    params: { issue: issueSlug(entry.data.issue) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+---
+<Base
+  nav="today"
+  title={`${d.title} · Slop Canon ${issueLabel(d.issue)}`}
+  description={d.caption}
+>
+  <Marquee slot="marquee" issue={d.issue} date={d.date} writtenAt={d.provenance.writtenAt} />
+
+  <section class="wrap" style="padding-top:40px">
+    <div class="band-label" data-weather={d.weather}>
+      <span class="txt">{d.title}</span>
+      <span class="rule"></span>
+      <span class={`chip ${d.weather === 'heavy' ? '' : 'pink'}`}>{d.dreamTheme}</span>
+    </div>
+    <p class="day">ISSUE {issueLabel(d.issue)} · {dayLabel(d.date)}</p>
+
+    <EntryPlate entry={entry} />
+    <Receipt issue={d.issue} provenance={d.provenance} />
+
+    <nav class="foot-row" style="margin-top:40px;justify-content:center" aria-label="Navigation">
+      <span><a href="/">← Back to today</a></span>
+    </nav>
+  </section>
+</Base>

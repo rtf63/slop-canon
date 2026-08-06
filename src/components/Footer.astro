@@ -1,0 +1,21 @@
+---
+// The "honest note" manifesto + footer nav. Present on every page.
+import { TIP_URL, TIP_LABEL } from '../lib/site';
+---
+<footer>
+  <div class="wrap">
+    <div class="honest">
+      <span class="h-title">An honest note about how this is made ✷</span>
+      Every poem here is written by a machine. That's not hidden — it's the point. This is a canon of
+      slop: a project <b>about</b> the age of generated everything, made <b>from inside</b> it. But it's
+      built to stay on the side of people: to catch the cruel line, to sit longer with the sad days.
+      When the news is unbearable, the colour drains out, the words go quiet, and it tries again tomorrow.
+    </div>
+    <div class="foot-row">
+      <span>Slop Canon · made by a machine, kept by a person</span>
+      <span>
+        <a href="/">Today</a> · <a href="/#archive">Archive</a> · <a href="/#shop">Shop</a> · <a href={TIP_URL} target="_blank" rel="noopener" title={TIP_LABEL}>Tip</a> · <a href="/#subscribe">Subscribe</a>
+      </span>
+    </div>
+  </div>
+</footer>

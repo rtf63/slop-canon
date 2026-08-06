@@ -1,0 +1,243 @@
+/* =====================================================================
+   Slop Canon — global stylesheet
+   Design tokens + base + component styles, lifted from the v2 mockup.
+   Component markup lives in src/components/*.astro and uses these classes.
+   The heavy-day palette-drain lives at the bottom (the compassion mechanic).
+   ===================================================================== */
+
+:root{
+  --cream:#faf1de;      /* paper */
+  --cream-2:#f3e6c9;    /* deeper panel */
+  --ink:#241d16;        /* warm near-black */
+  --pink:#ff5470;       /* riso fluoro coral */
+  --blue:#2c43d6;       /* riso cobalt */
+  --yellow:#ffc63d;     /* marigold */
+  --green:#2f8f6b;      /* riso forest */
+  --muted:#9a9084;      /* quiet taupe — the heavy-day colour */
+
+  --disp:'Bricolage Grotesque',system-ui,sans-serif;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+
+  --edge:3px solid var(--ink);
+  --shadow:5px 5px 0 var(--ink);
+  --maxw:1080px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:var(--sans);line-height:1.55;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.14 0 0 0 0 0.11 0 0 0 0 0.08 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit}
+::selection{background:var(--yellow)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--cream);
+  padding:10px 16px;font-family:var(--mono);font-size:13px;z-index:100;border-radius:0 0 8px 0}
+.skip-link:focus{left:0}
+
+/* ---------- top bar ---------- */
+header.top{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:var(--edge)}
+.top-in{display:flex;align-items:center;gap:16px;max-width:var(--maxw);margin:0 auto;padding:12px 22px}
+.logo{font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-.02em;line-height:1;display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo .eye{width:26px;height:26px;flex:none}
+.top-nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-family:var(--mono);font-size:13px}
+/* Base nav-link styling applies to text links only — NOT the .btn (Subscribe),
+   whose full button styling must win in every state (this selector would
+   otherwise out-specify .btn and break the button's resting padding/border). */
+.top-nav a:not(.btn){text-decoration:none;padding:2px 0;border-bottom:2px solid transparent}
+.top-nav a:not(.btn):hover{border-color:var(--pink)}
+.top-nav a:not(.btn)[aria-current="page"]{border-color:var(--ink)}
+.btn{font-family:var(--mono);font-weight:700;font-size:13px;text-decoration:none;
+  background:var(--yellow);color:var(--ink);border:var(--edge);border-radius:999px;
+  padding:9px 18px;box-shadow:var(--shadow);transition:transform .08s,box-shadow .08s;cursor:pointer;white-space:nowrap;
+  display:inline-block;font-family:var(--mono)}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn.pink{background:var(--pink);color:var(--cream)}
+.btn.blue{background:var(--blue);color:var(--cream)}
+@media(max-width:760px){ .top-nav a:not(.btn){display:none} }
+
+/* ---------- marquee ---------- */
+.marquee{background:var(--ink);color:var(--cream);border-bottom:var(--edge);overflow:hidden;white-space:nowrap;padding:8px 0}
+.marquee .track{display:inline-block;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;animation:scroll 34s linear infinite}
+.marquee .track span{padding:0 6px}
+.marquee .star{color:var(--yellow)}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:56px 0 30px}
+.kick{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--blue);
+  display:inline-flex;align-items:center;gap:9px;margin-bottom:20px}
+.kick .live{width:9px;height:9px;border-radius:50%;background:var(--pink);animation:blink 1.6s steps(1) infinite}
+@keyframes blink{50%{opacity:.25}}
+h1.head{font-family:var(--disp);font-weight:800;letter-spacing:-.025em;line-height:.98;
+  font-size:clamp(38px,6.4vw,74px);margin:0}
+h1.head .rot{color:var(--pink);display:inline-block;position:relative}
+h1.head .rot::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.06em;height:.14em;background:var(--yellow);z-index:-1}
+.sub{font-size:17px;max-width:34ch;margin:24px 0 26px;color:#4a4136}
+.sub em{font-family:var(--serif);font-style:italic;color:var(--ink)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hero-note{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:16px}
+.hero-inner{max-width:760px;position:relative;z-index:3}
+.doodle{position:absolute;pointer-events:none;z-index:2}
+.doodle.d-a{width:66px;top:16px;right:6%;animation:bob 5s ease-in-out infinite}
+.doodle.d-b{width:54px;bottom:8px;left:4%;animation:bob 6.5s ease-in-out infinite reverse}
+@keyframes bob{50%{transform:translateY(-10px) rotate(6deg)}}
+@media(max-width:760px){.doodle{display:none}}
+
+/* the artwork = a sticker */
+.sticker{position:relative;background:var(--cream);border:var(--edge);border-radius:14px;
+  box-shadow:8px 8px 0 var(--ink);overflow:hidden}
+.sticker svg{display:block;width:100%;height:auto}
+.issue-tag{position:absolute;top:10px;left:10px;font-family:var(--mono);font-weight:700;font-size:11px;
+  background:var(--ink);color:var(--cream);padding:4px 9px;border-radius:999px;letter-spacing:.06em;z-index:2}
+
+/* legacy two-column box — retained for reference; entries are poem-only now */
+.piece{border:var(--edge);border-radius:16px;background:var(--cream);box-shadow:8px 8px 0 var(--ink);
+  display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden}
+.piece-art{position:relative;border-right:var(--edge);background:var(--cream);display:flex;align-items:center}
+.piece-art svg{display:block;width:100%;height:auto}
+.piece-poem{padding:36px 36px;display:flex;flex-direction:column;justify-content:center}
+@media(max-width:760px){
+  .piece{grid-template-columns:1fr}
+  .piece-art{border-right:0;border-bottom:var(--edge)}
+  .piece-poem{padding:28px 24px}
+}
+
+/* the daily poem card (poem-only — the drawing was retired) */
+.poem-card{position:relative;border:var(--edge);border-radius:16px;background:var(--cream);
+  box-shadow:8px 8px 0 var(--ink);padding:60px 40px;max-width:760px;margin:0 auto;text-align:center}
+.poem-card .poem{max-width:34ch;margin:0 auto}
+@media(max-width:600px){.poem-card{padding:44px 22px}}
+
+/* ---------- daily drop / band labels ---------- */
+.band-label{display:flex;align-items:center;gap:14px;margin:64px 0 26px}
+.band-label .txt{font-family:var(--disp);font-weight:700;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;white-space:nowrap}
+.band-label .rule{flex:1;height:3px;background:var(--ink)}
+.chip{font-family:var(--mono);font-weight:700;font-size:12px;border:var(--edge);border-radius:999px;
+  padding:5px 12px;background:var(--cream)}
+.chip.pink{background:var(--pink);color:var(--cream)}
+.chip.blue{background:var(--blue);color:var(--cream)}
+.chip.green{background:var(--green);color:var(--cream)}
+
+.poem{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,26px);line-height:1.55;white-space:pre-line;color:var(--ink)}
+.poem .by{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:22px}
+
+/* ---------- the honest label (signature receipt) ---------- */
+.label-wrap{margin-top:22px}
+.receipt{max-width:440px;margin:0 auto;background:var(--cream);border:2px dashed var(--ink);
+  padding:22px 24px;font-family:var(--mono);font-size:12.5px;line-height:1.75;position:relative;transform:rotate(-.8deg)}
+.receipt::before,.receipt::after{content:"";position:absolute;left:0;right:0;height:10px;
+  background:repeating-linear-gradient(90deg,var(--cream) 0 8px,transparent 8px 16px)}
+.receipt::before{top:-10px}
+.receipt::after{bottom:-10px}
+.receipt h4{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.14em;text-align:center;
+  margin:0 0 14px;padding-bottom:12px;border-bottom:1.5px solid var(--ink)}
+.receipt .row{display:flex;justify-content:space-between;gap:12px;color:#5a5044}
+.receipt .row span:last-child{text-align:right}
+.receipt .saw{margin:12px 0;padding:12px 0;border-top:1.5px dashed var(--ink);border-bottom:1.5px dashed var(--ink)}
+.receipt .saw div{margin:3px 0}
+.receipt .stamp{margin-top:14px;text-align:center;color:var(--green);font-weight:700;
+  border:2px solid var(--green);border-radius:8px;padding:8px;transform:rotate(-1.5deg)}
+
+/* ---------- subscribe ---------- */
+.subscribe{margin-top:70px;background:var(--blue);color:var(--cream);border:var(--edge);border-radius:22px;
+  box-shadow:8px 8px 0 var(--ink);padding:52px 30px;text-align:center;position:relative;overflow:hidden}
+.subscribe h2{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;margin:0 0 12px}
+.subscribe p{max-width:44ch;margin:0 auto 24px;opacity:.92}
+.sub-form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.sub-form input{flex:1;min-width:200px;font-family:var(--mono);font-size:14px;padding:13px 16px;
+  border:var(--edge);border-radius:999px;background:var(--cream);color:var(--ink)}
+.sub-form input::placeholder{color:var(--muted)}
+.sub-fine{font-family:var(--mono);font-size:11.5px;opacity:.8;margin-top:16px}
+.sub-doodle{position:absolute;width:120px;opacity:.9}
+.sd1{top:-16px;left:16px;transform:rotate(-12deg)}
+.sd2{bottom:-22px;right:14px;transform:rotate(10deg)}
+@media(max-width:600px){.sub-doodle{display:none}}
+
+/* ---------- archive ---------- */
+.feat{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:center;
+  border:var(--edge);border-radius:16px;background:var(--cream);box-shadow:var(--shadow);
+  padding:30px;margin-bottom:22px}
+.feat.rev{grid-template-columns:1.1fr .9fr}
+.feat.rev .feat-art{order:2}
+.feat.quiet{background:#efe9dd;color:#4c463c;box-shadow:5px 5px 0 var(--muted);border-color:var(--muted)}
+.feat.quiet .day{color:var(--muted)}
+.feat.quiet .ftitle{color:#4c463c}
+@media(max-width:760px){.feat,.feat.rev{grid-template-columns:1fr}.feat.rev .feat-art{order:0}}
+.day{font-family:var(--mono);font-weight:700;font-size:12px;color:var(--pink);margin-bottom:8px}
+.ftitle{font-family:var(--disp);font-weight:700;font-size:26px;letter-spacing:-.02em;margin:0 0 14px;text-decoration:none;display:block}
+a.ftitle:hover{color:var(--pink)}
+.fpoem{font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.55;white-space:pre-line}
+.fnote{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:16px;border-left:3px solid currentColor;padding-left:12px;line-height:1.65}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+.tile{border:var(--edge);border-radius:12px;overflow:hidden;background:var(--cream);text-decoration:none;
+  box-shadow:var(--shadow);transition:transform .12s,box-shadow .12s;display:block}
+.tile:hover{transform:rotate(-1.5deg) translateY(-3px);box-shadow:7px 8px 0 var(--ink)}
+.tile .th{aspect-ratio:1/1;border-bottom:var(--edge)}
+.tile .th svg{width:100%;height:100%;display:block}
+.tile .m{padding:11px 13px}
+.tile .m .n{font-family:var(--mono);font-weight:700;font-size:11px;color:var(--blue)}
+.tile .m .t{font-family:var(--disp);font-weight:700;font-size:15px;line-height:1.15;margin-top:4px;letter-spacing:-.01em}
+.tile.locked .th{position:relative}
+.tile.locked .th::after{content:"members only ★";position:absolute;inset:0;background:rgba(36,29,22,.78);
+  color:var(--cream);font-family:var(--mono);font-size:11px;display:flex;align-items:center;justify-content:center}
+
+/* ---------- prints ---------- */
+.prints{margin-top:70px;border:var(--edge);border-radius:22px;background:var(--pink);color:var(--cream);
+  box-shadow:8px 8px 0 var(--ink);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+@media(max-width:760px){.prints{grid-template-columns:1fr}}
+.prints h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,3.6vw,38px);letter-spacing:-.02em;margin:0 0 12px}
+.prints p{opacity:.94;margin:0 0 22px}
+.print-links{display:flex;gap:12px;flex-wrap:wrap}
+.print-links a{font-family:var(--mono);font-weight:700;font-size:12.5px;text-decoration:none;
+  background:var(--cream);color:var(--ink);border:var(--edge);border-radius:999px;padding:10px 16px;box-shadow:4px 4px 0 var(--ink);
+  transition:transform .08s}
+.print-links a:hover{transform:translate(-1px,-1px)}
+.print-art{display:flex;gap:14px}
+.print-art .sticker{flex:1;box-shadow:5px 5px 0 var(--ink)}
+.print-art .sticker:nth-child(1){transform:rotate(-3deg)}
+.print-art .sticker:nth-child(2){transform:rotate(3deg)}
+
+/* ---------- footer ---------- */
+footer{margin-top:70px;border-top:var(--edge);padding:44px 0 60px}
+.honest{max-width:66ch;font-family:var(--sans);font-size:15px;line-height:1.7;color:#4a4136}
+.honest b{color:var(--ink)}
+.honest .h-title{font-family:var(--disp);font-weight:700;font-size:20px;color:var(--ink);display:block;margin-bottom:10px;letter-spacing:-.01em}
+.foot-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:28px;
+  font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.foot-row a{text-decoration:none}.foot-row a:hover{color:var(--pink)}
+
+/* =====================================================================
+   HEAVY-DAY MECHANIC — the compassion rule, in code.
+   Any subtree marked [data-weather="heavy"] drains to greys: the fluoro
+   inks remap to muted taupe, shadows soften, playful motion is stilled.
+   This is a hard rule from the spec + voice skill, not a theme option.
+   ===================================================================== */
+[data-weather="heavy"]{
+  --pink:var(--muted);
+  --blue:#6b6458;
+  --yellow:#cdbfa0;
+  --green:var(--muted);
+  --shadow:5px 5px 0 var(--muted);
+}
+[data-weather="heavy"] .piece,
+[data-weather="heavy"] .poem-card,
+[data-weather="heavy"] .sticker{background:#efe9dd;border-color:var(--muted);box-shadow:5px 5px 0 var(--muted)}
+[data-weather="heavy"] .piece-art{border-right-color:var(--muted)}
+[data-weather="heavy"] .issue-tag{background:var(--muted)}
+[data-weather="heavy"] .chip{background:#efe9dd;color:#4c463c;border-color:var(--muted)}
+[data-weather="heavy"] .band-label .rule{background:var(--muted)}
+[data-weather="heavy"] .doodle{display:none}       /* no whimsy on hard days */
+[data-weather="heavy"] .poem .by{color:var(--muted)}
+
+/* ---------- reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
