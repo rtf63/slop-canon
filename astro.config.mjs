@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 // Entries are immutable once published, so we prerender everything.
 // The one dynamic need (archive gating) is handled later at the edge (M4).
 export default defineConfig({
-  site: 'https://slop-canon.vercel.app', // TODO: swap for your real domain
+  site: 'https://www.slopcanon.ai',
   output: 'static',
   trailingSlash: 'ignore',
   build: {

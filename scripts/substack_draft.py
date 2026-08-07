@@ -24,7 +24,7 @@ import os
 import sys
 
 ENTRIES_DIR = "src/content/entries"
-SITE_URL = "https://slop-canon.vercel.app"  # TODO: swap for the real domain
+SITE_URL = "https://www.slopcanon.ai"
 
 
 def die(msg, code=1):
