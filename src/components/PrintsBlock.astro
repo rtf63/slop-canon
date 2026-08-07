@@ -1,27 +1,26 @@
 ---
-// Prints teaser. The shop sells the poems as objects — letterpress-style
-// broadsides, cards, and the annual anthology. Links out to Shopify at launch
-// (product creation is the pipeline's job). TODO(M3): real storefront URLs.
+// The shop — not open yet. Poems will become objects (broadsides, cards, the
+// annual anthology) later; for now this is a "coming soon" surface that points
+// people to the free daily poem on Substack.
+import { SUBSTACK_URL } from '../lib/site';
 ---
 <section id="shop" class="wrap">
   <div class="band-label">
     <span class="txt">The Shop</span>
     <span class="rule"></span>
-    <span class="chip green">prints &amp; anthology</span>
+    <span class="chip green">coming soon</span>
   </div>
   <div class="prints">
     <div class="print-copy">
-      <h2>Take a poem home with you</h2>
-      <p>Some poems deserve a wall. Every day's poem can come as a letterpress-style broadside or a folding card, and the whole year collects into an annual anthology. If a machine's going to make things, at least let a few of them be real objects you can hold.</p>
+      <h2>Prints &amp; the anthology — coming soon</h2>
+      <p>One day the poems will become things you can hold: letterpress-style broadsides, folding cards, and an annual anthology. It's not open yet. For now the poems are free — one a day.</p>
       <div class="print-links">
-        <a href="#shop">Poem prints →</a>
-        <a href="#shop">Cards &amp; postcards →</a>
-        <a href="#shop">The 2026 anthology →</a>
+        <a href={SUBSTACK_URL} target="_blank" rel="noopener">Get the daily poem →</a>
       </div>
     </div>
     <div class="print-art">
       <div class="sticker poem-print">
-        <span class="issue-tag">Nº000 ✎</span>
+        <span class="issue-tag">soon ✎</span>
         <p>only that it is warm,<br />only that it is bright.</p>
       </div>
       <div class="sticker poem-print">

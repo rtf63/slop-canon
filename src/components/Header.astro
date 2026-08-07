@@ -1,5 +1,5 @@
 ---
-import { TIP_URL, TIP_LABEL } from '../lib/site';
+import { TIP_URL, TIP_LABEL, SUBSTACK_URL } from '../lib/site';
 interface Props { nav?: 'today' | 'prints'; }
 const { nav } = Astro.props;
 ---
@@ -14,11 +14,10 @@ const { nav } = Astro.props;
       Slop Canon
     </a>
     <nav class="top-nav">
-      <a href="/" aria-current={nav === 'today' ? 'page' : undefined}>Today</a>
-      <a href="/#archive">Archive</a>
+      <a href="/#todays-drop" aria-current={nav === 'today' ? 'page' : undefined}>Today</a>
       <a href="/#shop">Shop</a>
       <a href={TIP_URL} target="_blank" rel="noopener" title={TIP_LABEL}>Tip ☕</a>
-      <a href="/#subscribe" class="btn pink">Subscribe →</a>
+      <a href={SUBSTACK_URL} target="_blank" rel="noopener" class="btn pink">Subscribe →</a>
     </nav>
   </div>
 </header>
