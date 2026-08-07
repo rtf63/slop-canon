@@ -138,21 +138,51 @@ def build_post(e):
     }
 
 
-# ---- Substack draft creation (cookie-authenticated) ---------------------------
+# ---- Paste-ready plain text (Cloudflare-proof fallback) -----------------------
 
-def create_draft(post, pub_url, sid):
-    import requests  # only needed for the live path
+def render_text(e):
+    """A copy-paste-ready post. Never hits the network, so it always works —
+    paste into a new Substack post and hit Publish."""
+    date = str(e.get("date", ""))[:10]
+    out = [e["title"], f"Slop Canon · {issue_label(e['issue'])} · {date}", "",
+           e["poem"].rstrip("\n"), "", "— written by a language model", "", "———"]
+    prov = e.get("provenance", {}) or {}
+    saw = prov.get("saw", []) or []
+    if saw:
+        out.append("what it saw ▸")
+        out += [f"· {s}" for s in saw]
+    sources = prov.get("sources", []) or []
+    if sources:
+        out += ["", "sources ▸"] + [f"→ {s['title']} — {s['url']}" for s in sources]
+    out += ["", "———",
+            f"Slop Canon — one machine-written poem a day, informed by the day's news. {SITE_URL}"]
+    return "\n".join(out) + "\n"
+
+
+def write_paste_ready(e):
+    os.makedirs("substack-out", exist_ok=True)
+    fn = f"substack-out/{str(int(e['issue'])).zfill(3)}.txt"
+    with open(fn, "w", encoding="utf-8") as f:
+        f.write(render_text(e))
+    return fn
+
+
+# ---- Substack draft creation (cookie-authenticated; best-effort) --------------
+
+def try_create_draft(post, pub_url, sid):
+    """Attempt the draft via the unofficial cookie API. Returns True on success.
+    Never raises — Substack sits behind Cloudflare, which challenges automated
+    calls from datacenter IPs (CI), so failure is expected there."""
+    import requests
 
     s = requests.Session()
     s.cookies.set("substack.sid", sid, domain=pub_url.split("//", 1)[-1])
     s.headers.update({
         "content-type": "application/json",
         "accept": "application/json",
-        # a normal browser UA reduces the chance of being bounced
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
                       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
     })
-
     payload = {
         "draft_title": post["title"],
         "draft_subtitle": post["subtitle"],
@@ -160,7 +190,6 @@ def create_draft(post, pub_url, sid):
         "audience": "everyone",
         "type": "newsletter",
     }
-    # best-effort author byline; Substack usually infers it from the session
     try:
         me = s.get("https://substack.com/api/v1/user", timeout=20)
         if me.ok and isinstance(me.json(), dict) and me.json().get("id"):
@@ -168,12 +197,20 @@ def create_draft(post, pub_url, sid):
     except Exception:
         pass
 
-    r = s.post(f"{pub_url}/api/v1/drafts", data=json.dumps(payload), timeout=30)
-    if not r.ok:
-        die(f"Substack draft failed: HTTP {r.status_code}\n{r.text[:800]}")
-    draft_id = r.json().get("id")
-    print(f"✓ Draft created: {pub_url}/publish/post/{draft_id}")
-    print("  Review and hit Publish in Substack when you're ready.")
+    try:
+        r = s.post(f"{pub_url}/api/v1/drafts", data=json.dumps(payload), timeout=30)
+    except Exception as ex:
+        print(f"⚠ Substack API call errored: {ex}")
+        return False
+    if r.ok:
+        draft_id = r.json().get("id")
+        print(f"✓ Draft created: {pub_url}/publish/post/{draft_id}")
+        return True
+    blocked = r.status_code == 403 or "Just a moment" in r.text
+    print(f"⚠ Substack API call failed: HTTP {r.status_code}"
+          + (" — Cloudflare bot challenge (automated calls from CI are blocked)." if blocked else "."))
+    print("  → Use the paste-ready post from this run's 'substack-post' artifact instead.")
+    return False
 
 
 def main():
@@ -182,20 +219,19 @@ def main():
     print(f"Newest entry: {path}  ({issue_label(e['issue'])} · {e['title']})")
 
     if os.environ.get("DRY_RUN"):
-        print("\n----- DRY RUN: Substack draft preview -----")
-        print("TITLE   :", post["title"])
-        print("SUBTITLE:", post["subtitle"])
-        print("BODY (ProseMirror doc):")
-        print(json.dumps(post["body"], indent=2, ensure_ascii=False))
+        print("\n----- paste-ready post -----")
+        print(render_text(e))
         return
+
+    fn = write_paste_ready(e)
+    print(f"Paste-ready post written to {fn}")
 
     sid = os.environ.get("SUBSTACK_SID")
     pub = os.environ.get("SUBSTACK_PUBLICATION_URL")
-    if not sid or not pub:
-        # No secret configured yet — skip cleanly so CI stays green.
-        print("SUBSTACK_SID / SUBSTACK_PUBLICATION_URL not set; skipping draft.")
-        return
-    create_draft(post, pub.rstrip("/"), sid)
+    if sid and pub:
+        try_create_draft(post, pub.rstrip("/"), sid)  # best-effort; never fatal
+    else:
+        print("No Substack secrets set; skipping the API attempt.")
 
 
 if __name__ == "__main__":

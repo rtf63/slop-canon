@@ -58,3 +58,11 @@ jobs:
         run: |
           pip install --quiet requests pyyaml
           python scripts/substack_draft.py
+
+      - name: Upload paste-ready post
+        if: steps.added.outputs.run == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: substack-post
+          path: substack-out/
+          if-no-files-found: ignore
