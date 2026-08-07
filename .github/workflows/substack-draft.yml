@@ -1,0 +1,54 @@
+name: Substack draft
+
+# When the daily routine pushes a NEW poem, create a Substack *draft* (never
+# publish). A human publishes it from the Substack dashboard — that's the daily
+# editorial glance and the heavy-day gate. Needs two repo secrets:
+#   SUBSTACK_SID              your `substack.sid` session cookie
+#   SUBSTACK_PUBLICATION_URL  e.g. https://slopcanon.substack.com
+# Until those are set, the job runs but skips cleanly (stays green).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/content/entries/**"
+
+concurrency:
+  group: substack-draft
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need history to see which entries this push added
+
+      - name: Detect newly added poem(s)
+        id: added
+        run: |
+          before="${{ github.event.before }}"
+          if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+            base="HEAD~1"
+          else
+            base="$before"
+          fi
+          added=$(git diff --name-only --diff-filter=A "$base" "${{ github.sha }}" -- 'src/content/entries/*.md' || true)
+          echo "Added entries: ${added:-<none>}"
+          if [ -n "$added" ]; then echo "run=yes" >> "$GITHUB_OUTPUT"; else echo "run=no" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Set up Python
+        if: steps.added.outputs.run == 'yes'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create Substack draft (draft only — never publishes)
+        if: steps.added.outputs.run == 'yes'
+        env:
+          SUBSTACK_SID: ${{ secrets.SUBSTACK_SID }}
+          SUBSTACK_PUBLICATION_URL: ${{ secrets.SUBSTACK_PUBLICATION_URL }}
+        run: |
+          pip install --quiet requests pyyaml
+          python scripts/substack_draft.py
