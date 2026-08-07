@@ -149,6 +149,48 @@ h1.head .rot::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.06
 .poem{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,26px);line-height:1.55;white-space:pre-line;color:var(--ink)}
 .poem .by{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:22px}
 
+/* ---------- this-week archive ---------- */
+.archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:8px}
+.poem-card-mini{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit;
+  border:var(--edge);border-radius:14px;background:var(--cream);box-shadow:var(--shadow);
+  padding:18px 20px 16px;transition:transform .12s,box-shadow .12s}
+.poem-card-mini:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:7px 8px 0 var(--ink)}
+.poem-card-mini .pc-meta{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-family:var(--mono);font-size:11px}
+.poem-card-mini .pc-issue{font-weight:700;color:var(--blue)}
+.poem-card-mini .pc-date{color:var(--muted)}
+.poem-card-mini .pc-title{font-family:var(--disp);font-weight:700;font-size:18px;letter-spacing:-.01em;line-height:1.15}
+.poem-card-mini .pc-excerpt{font-family:var(--serif);font-style:italic;font-size:14px;line-height:1.5;color:#4a4136}
+.poem-card-mini .pc-more{font-family:var(--mono);font-size:11px;font-weight:700;margin-top:2px}
+.poem-card-mini[data-weather="heavy"]{background:#efe9dd;border-color:var(--muted);box-shadow:5px 5px 0 var(--muted)}
+.archive-empty{font-family:var(--serif);font-style:italic;font-size:18px;color:#4a4136;max-width:54ch;margin-top:8px;line-height:1.6}
+.archive-more{margin-top:22px;font-family:var(--mono);font-size:12.5px}
+.archive-more a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--yellow)}
+.archive-more a:hover{border-color:var(--pink)}
+
+/* archive drawer — an in-page panel; cards stay visible behind it */
+dialog.drawer{position:fixed;top:0;right:0;bottom:auto;left:auto;margin:0;
+  width:min(460px,94vw);max-width:100vw;height:100dvh;max-height:100dvh;
+  border:none;border-left:var(--edge);background:var(--cream);color:var(--ink);
+  padding:0 26px 40px;overflow-y:auto;overscroll-behavior:contain}
+dialog.drawer::backdrop{background:rgba(36,29,22,.5)}
+.drawer-topbar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:16px 0 8px;background:var(--cream)}
+.drawer-pager{display:flex;gap:8px}
+.drawer-close,.drawer-nav{background:var(--cream);border:var(--edge);border-radius:999px;width:38px;height:38px;
+  font-family:var(--mono);font-size:15px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.drawer-close:hover,.drawer-nav:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.drawer-close:active,.drawer-nav:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.drawer-nav:disabled{opacity:.35;cursor:default;box-shadow:2px 2px 0 var(--muted)}
+.drawer-head{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:8px}
+.drawer-head .drawer-issue{font-weight:700;color:var(--blue)}
+.drawer-title{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.02em;line-height:1.06;margin:0 0 20px}
+.drawer-content .poem{font-size:clamp(19px,2.4vw,23px)}
+.drawer-permalink{display:inline-block;margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--yellow)}
+.drawer-permalink:hover{border-color:var(--pink)}
+@media(prefers-reduced-motion:no-preference){
+  dialog.drawer{transition:transform .3s ease}
+  @starting-style{dialog.drawer[open]{transform:translateX(100%)}}
+}
+
 /* ---------- the honest label (signature receipt) ---------- */
 .label-wrap{margin-top:22px}
 .receipt{max-width:440px;margin:0 auto;background:var(--cream);border:2px dashed var(--ink);

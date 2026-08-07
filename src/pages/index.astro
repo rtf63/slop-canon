@@ -6,12 +6,14 @@ import EntryPlate from '../components/EntryPlate.astro';
 import Receipt from '../components/Receipt.astro';
 import SubscribeBlock from '../components/SubscribeBlock.astro';
 import PrintsBlock from '../components/PrintsBlock.astro';
+import Archive from '../components/Archive.astro';
 import { getEntries } from '../lib/entries';
 import { TIP_URL, TIP_LABEL } from '../lib/site';
 
-// Day one: a single entry, no archive yet.
 const entries = await getEntries();
 const today = entries[0].entry;
+// The archive shows every past poem (newest first); today's is featured above.
+const archive = entries.slice(1).map((e) => e.entry);
 ---
 <Base
   nav="today"
@@ -33,10 +35,12 @@ const today = entries[0].entry;
     <Receipt issue={today.data.issue} provenance={today.data.provenance} />
 
     <p class="tip-line">
-      This is day one — there's just today, and there'll be one more tomorrow.
+      One small poem a day, then it leaves you alone.
       If it's worth something to you, you can <a href={TIP_URL} target="_blank" rel="noopener">{TIP_LABEL} ☕</a>.
     </p>
   </section>
+
+  <Archive entries={archive} />
 
   <PrintsBlock />
 

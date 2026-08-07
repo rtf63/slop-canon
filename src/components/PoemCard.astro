@@ -1,0 +1,19 @@
+---
+import { issueLabel, issueSlug, dayLabel } from '../lib/format';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { entry: CollectionEntry<'entries'>; }
+const { entry } = Astro.props;
+const { issue, date, title, poem, weather } = entry.data;
+// first two non-empty lines as a taste
+const excerpt = poem.split('\n').map((l) => l.trim()).filter(Boolean).slice(0, 2).join(' / ');
+---
+<a class="poem-card-mini" href={`/day/${issueSlug(issue)}`} data-issue={issue} data-weather={weather}>
+  <div class="pc-meta">
+    <span class="pc-issue">{issueLabel(issue)}</span>
+    <span class="pc-date">{dayLabel(date)}</span>
+  </div>
+  <div class="pc-title">{title}</div>
+  <div class="pc-excerpt">{excerpt}</div>
+  <div class="pc-more">read →</div>
+</a>
