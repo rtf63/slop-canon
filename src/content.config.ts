@@ -24,6 +24,10 @@ const entries = defineCollection({
       madeBy: z.string().default('a language model'),
       writtenAt: z.string(), // e.g. "06:04 PST"
       saw: z.array(z.string()).min(2).max(4), // oblique "what it saw" notes
+      // The real articles behind the oblique notes — cited + linked in the receipt.
+      sources: z
+        .array(z.object({ title: z.string(), url: z.string().url() }))
+        .default([]),
     }),
     // Optional manual override; otherwise gating is computed at build (recent N public).
     gated: z.boolean().optional(),

@@ -2,7 +2,12 @@
 import { issueLabel } from '../lib/format';
 interface Props {
   issue: number;
-  provenance: { madeBy: string; writtenAt: string; saw: string[] };
+  provenance: {
+    madeBy: string;
+    writtenAt: string;
+    saw: string[];
+    sources: { title: string; url: string }[];
+  };
 }
 const { issue, provenance } = Astro.props;
 ---
@@ -15,6 +20,14 @@ const { issue, provenance } = Astro.props;
       <div>what it saw first ▸</div>
       {provenance.saw.map((s) => (<div>· {s}</div>))}
     </div>
+    {provenance.sources.length > 0 && (
+      <div class="sources">
+        <div>sources ▸</div>
+        {provenance.sources.map((s) => (
+          <div>→ <a href={s.url} target="_blank" rel="noopener">{s.title}</a></div>
+        ))}
+      </div>
+    )}
     <div class="stamp">✷ CANON {issueLabel(issue)} ✷</div>
   </div>
 </div>

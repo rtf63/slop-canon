@@ -13,7 +13,10 @@ const { nav } = Astro.props;
       </svg>
       Slop Canon
     </a>
-    <nav class="top-nav">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24"><g stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></g></svg>
+    </button>
+    <nav class="top-nav" id="site-nav">
       <a href="/#todays-drop" aria-current={nav === 'today' ? 'page' : undefined}>Today</a>
       <a href="/#shop">Shop</a>
       <a href={TIP_URL} target="_blank" rel="noopener" title={TIP_LABEL}>Tip ☕</a>
@@ -21,3 +24,21 @@ const { nav } = Astro.props;
     </nav>
   </div>
 </header>
+
+<script>
+  // Mobile menu toggle — progressive enhancement (nav is a plain list without JS)
+  (function () {
+    const btn = document.getElementById('nav-toggle');
+    const nav = document.getElementById('site-nav');
+    if (!btn || !nav) return;
+    const close = () => { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); };
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // close after tapping a link so the page scrolls into view
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+    // close on Escape
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  })();
+</script>

@@ -49,6 +49,8 @@ header.top{position:sticky;top:0;z-index:50;background:var(--cream);border-botto
 .logo{font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-.02em;line-height:1;display:flex;align-items:center;gap:9px;text-decoration:none}
 .logo .eye{width:26px;height:26px;flex:none}
 .top-nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-family:var(--mono);font-size:13px}
+.nav-toggle{display:none;margin-left:auto;background:none;border:none;padding:6px;cursor:pointer;color:var(--ink);line-height:0;border-radius:8px}
+.nav-toggle:hover{background:var(--cream-2)}
 /* Base nav-link styling applies to text links only — NOT the .btn (Subscribe),
    whose full button styling must win in every state (this selector would
    otherwise out-specify .btn and break the button's resting padding/border). */
@@ -63,7 +65,18 @@ header.top{position:sticky;top:0;z-index:50;background:var(--cream);border-botto
 .btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
 .btn.pink{background:var(--pink);color:var(--cream)}
 .btn.blue{background:var(--blue);color:var(--cream)}
-@media(max-width:760px){ .top-nav a:not(.btn){display:none} }
+@media(max-width:760px){
+  .nav-toggle{display:inline-flex;align-items:center}
+  .top-nav{
+    position:absolute;top:100%;left:0;right:0;margin-left:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--cream);border-bottom:var(--edge);
+    padding:6px 22px 18px;display:none;
+  }
+  .top-nav.open{display:flex}
+  .top-nav a:not(.btn){padding:14px 2px;font-size:16px;border-bottom:1.5px solid rgba(36,29,22,.10)}
+  .top-nav a.btn{margin-top:14px;text-align:center}
+}
 
 /* ---------- marquee ---------- */
 .marquee{background:var(--ink);color:var(--cream);border-bottom:var(--edge);overflow:hidden;white-space:nowrap;padding:8px 0}
@@ -127,6 +140,11 @@ h1.head .rot::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.06
 .chip.pink{background:var(--pink);color:var(--cream)}
 .chip.blue{background:var(--blue);color:var(--cream)}
 .chip.green{background:var(--green);color:var(--cream)}
+@media(max-width:600px){
+  .band-label{flex-direction:column;align-items:flex-start;gap:12px;margin:48px 0 22px}
+  .band-label .txt{white-space:normal}
+  .band-label .rule{display:none}
+}
 
 .poem{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,26px);line-height:1.55;white-space:pre-line;color:var(--ink)}
 .poem .by{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:22px}
@@ -145,6 +163,10 @@ h1.head .rot::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.06
 .receipt .row span:last-child{text-align:right}
 .receipt .saw{margin:12px 0;padding:12px 0;border-top:1.5px dashed var(--ink);border-bottom:1.5px dashed var(--ink)}
 .receipt .saw div{margin:3px 0}
+.receipt .sources{margin:12px 0;padding-bottom:12px;border-bottom:1.5px dashed var(--ink)}
+.receipt .sources div{margin:3px 0}
+.receipt .sources a{color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue);word-break:break-word}
+.receipt .sources a:hover{color:var(--pink);border-color:var(--pink)}
 .receipt .stamp{margin-top:14px;text-align:center;color:var(--green);font-weight:700;
   border:2px solid var(--green);border-radius:8px;padding:8px;transform:rotate(-1.5deg)}
 
