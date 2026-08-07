@@ -70,13 +70,20 @@ export const GET: APIRoute = async ({ site }) => {
     ...VTIMEZONE,
   ];
 
+  const wittyTip = "Buy the machine a coffee it can't drink (it works purely for the exposure):";
   for (const { data: e } of entries) {
     const day = ymd(e.date);
-    const desc = asciify(
-      `Date: ${day.slice(0, 4)}-${day.slice(4, 6)}-${day.slice(6, 8)}\n` +
-        `Theme: ${e.dreamTheme}\n\n` +
+    // plain text (always works; the URL auto-links in most calendars)
+    const descPlain = asciify(
+      `Today the machine wrote about ${e.dreamTheme}.\n\n` +
         `${e.poem.trim()}\n\n` +
-        `Tips: ${TIP_URL}`,
+        `${wittyTip} ${TIP_URL}`,
+    );
+    // HTML alternate (clients that support it show a real hyperlinked tip)
+    const descHtml = asciify(
+      `Today the machine wrote about <b>${e.dreamTheme}</b>.<br><br>` +
+        `${e.poem.trim().replace(/\n/g, '<br>')}<br><br>` +
+        `<a href="${TIP_URL}">Buy the machine a coffee it can't drink</a> — it works purely for the exposure.`,
     );
     lines.push(
       'BEGIN:VEVENT',
@@ -86,7 +93,8 @@ export const GET: APIRoute = async ({ site }) => {
       `DTSTART;TZID=America/Los_Angeles:${day}T070000`,
       `DTEND;TZID=America/Los_Angeles:${day}T070500`,
       fold(`SUMMARY:${esc(`Publish Slop Canon ${issueLabel(e.issue)} — ${e.title}`)}`),
-      fold(`DESCRIPTION:${esc(desc)}`),
+      fold(`DESCRIPTION:${esc(descPlain)}`),
+      fold(`X-ALT-DESC;FMTTYPE=text/html:${esc(descHtml)}`),
       fold(`URL:${base}/day/${issueSlug(e.issue)}`),
       'END:VEVENT',
     );
