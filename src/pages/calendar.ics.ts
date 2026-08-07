@@ -96,6 +96,12 @@ export const GET: APIRoute = async ({ site }) => {
       fold(`DESCRIPTION:${esc(descPlain)}`),
       fold(`X-ALT-DESC;FMTTYPE=text/html:${esc(descHtml)}`),
       fold(`URL:${base}/day/${issueSlug(e.issue)}`),
+      // a display alarm at 7:00 so subscribed clients (Apple) actually notify
+      'BEGIN:VALARM',
+      'ACTION:DISPLAY',
+      "DESCRIPTION:Publish today's Slop Canon poem",
+      'TRIGGER:-PT0M',
+      'END:VALARM',
       'END:VEVENT',
     );
   }
