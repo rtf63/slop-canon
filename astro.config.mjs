@@ -12,4 +12,13 @@ export default defineConfig({
     // Keep pretty permalinks: /day/214 -> day/214/index.html
     format: 'directory',
   },
+  vite: {
+    build: {
+      // Never inline scripts/assets into the HTML: keeps every <script> as an
+      // external same-origin file so the strict CSP (script-src 'self', no
+      // unsafe-inline) can hold. That CSP is the backstop that stops any
+      // injected inline script from ever running on this domain.
+      assetsInlineLimit: 0,
+    },
+  },
 });

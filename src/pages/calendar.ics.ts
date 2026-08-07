@@ -20,6 +20,11 @@ const asciify = (s: string) =>
 const esc = (s: string) =>
   s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
 
+// Entry text originates from the news-reading pipeline, so treat it as
+// untrusted before interpolating into the HTML alternate description.
+const escHtml = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 // Fold lines to <=75 octets per RFC 5545 (CRLF + single space continuation).
 const fold = (line: string) => {
   const out: string[] = [];
@@ -81,8 +86,8 @@ export const GET: APIRoute = async ({ site }) => {
     );
     // HTML alternate (clients that support it show a real hyperlinked tip)
     const descHtml = asciify(
-      `Today the machine wrote about <b>${e.dreamTheme}</b>.<br><br>` +
-        `${e.poem.trim().replace(/\n/g, '<br>')}<br><br>` +
+      `Today the machine wrote about <b>${escHtml(e.dreamTheme)}</b>.<br><br>` +
+        `${escHtml(e.poem.trim()).replace(/\n/g, '<br>')}<br><br>` +
         `<a href="${TIP_URL}">Buy the machine a coffee it can't drink</a> — it works purely for the exposure.`,
     );
     lines.push(
