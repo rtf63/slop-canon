@@ -41,6 +41,9 @@ const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
   {ogImageAbs && <meta property="og:image" content={ogImageAbs} />}
   <meta name="twitter:card" content={ogImageAbs ? 'summary_large_image' : 'summary'} />
 
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
   <link rel="alternate" type="application/rss+xml" title="Slop Canon" href="/rss.xml" />
 
   <!-- Fonts. TODO(M3): self-host via @fontsource for privacy + perf (drops this

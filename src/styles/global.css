@@ -47,7 +47,7 @@ a{color:inherit}
 header.top{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:var(--edge)}
 .top-in{display:flex;align-items:center;gap:16px;max-width:var(--maxw);margin:0 auto;padding:12px 22px}
 .logo{font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-.02em;line-height:1;display:flex;align-items:center;gap:9px;text-decoration:none}
-.logo .eye{width:26px;height:26px;flex:none}
+.logo .critter{width:34px;height:26px;flex:none}
 .top-nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-family:var(--mono);font-size:13px}
 .nav-toggle{display:none;margin-left:auto;background:none;border:none;padding:6px;cursor:pointer;color:var(--ink);line-height:0;border-radius:8px}
 .nav-toggle:hover{background:var(--cream-2)}

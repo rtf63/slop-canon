@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-175 -140 350 350">
+  <!-- Slop Canon blob critter — features thickened to stay legible at 16px -->
+  <g stroke-linejoin="round">
+    <path d="M-150 96 C-156 30 -118 -18 -66 -36 C-34 -76 40 -82 70 -38 C124 -22 158 32 150 96 C150 130 122 134 116 96 C100 96 92 96 76 96 C74 150 44 152 40 96 C10 96 -10 96 -30 96 C-34 122 -58 124 -62 96 Z" fill="#ff5470" opacity=".45" transform="translate(16,-10)"/>
+    <path d="M-150 96 C-156 30 -118 -18 -66 -36 C-34 -76 40 -82 70 -38 C124 -22 158 32 150 96 C150 130 122 134 116 96 C100 96 92 96 76 96 C74 150 44 152 40 96 C10 96 -10 96 -30 96 C-34 122 -58 124 -62 96 Z" fill="#ffc63d"/>
+    <path d="M-150 96 C-156 30 -118 -18 -66 -36 C-34 -76 40 -82 70 -38 C124 -22 158 32 150 96 C150 130 122 134 116 96 C100 96 92 96 76 96 C74 150 44 152 40 96 C10 96 -10 96 -30 96 C-34 122 -58 124 -62 96 Z" fill="none" stroke="#241d16" stroke-width="18"/>
+    <circle cx="-44" cy="-4" r="20" fill="#241d16"/>
+    <circle cx="42" cy="-8" r="20" fill="#241d16"/>
+    <circle cx="-52" cy="-12" r="6.5" fill="#faf1de"/>
+    <circle cx="34" cy="-16" r="6.5" fill="#faf1de"/>
+    <path d="M-18 38 q28 22 56 -2" fill="none" stroke="#241d16" stroke-width="16" stroke-linecap="round"/>
+  </g>
+</svg>
