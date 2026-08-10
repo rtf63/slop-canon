@@ -1,7 +1,6 @@
 ---
 // The landing hero. The rotating audience word is progressive enhancement:
 // it degrades to the first word with JS off or reduced-motion on.
-import { SUBSTACK_URL } from '../lib/site';
 ---
 <div class="hero">
   <svg class="doodle d-a" viewBox="0 0 60 60" aria-hidden="true"><g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"><path d="M30 8 v10 M30 42 v10 M8 30 h10 M42 30 h10 M14 14 l7 7 M46 46 l-7-7 M46 14 l-7 7 M14 46 l7-7"/><circle cx="30" cy="30" r="9" fill="var(--yellow)"/></g></svg>
@@ -11,8 +10,7 @@ import { SUBSTACK_URL } from '../lib/site';
     <h1 class="head">A poem a day for <span class="rot" id="rot">the terminally online</span></h1>
     <p class="sub">Every morning a machine writes one poem, informed by the day's news. <em>That's the whole website.</em></p>
     <div class="hero-cta">
-      <a href={SUBSTACK_URL} target="_blank" rel="noopener" class="btn pink">Get it in your inbox →</a>
-      <a href="#todays-drop" class="btn">Read today's ↓</a>
+      <a href="#todays-drop" class="btn pink">Read today's ↓</a>
     </div>
     <p class="hero-note">free daily · one small thing each morning · leave whenever</p>
   </div>

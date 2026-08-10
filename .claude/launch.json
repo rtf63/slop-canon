@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "slop-canon-dev",
+      "runtimeExecutable": "/Users/rachelfishman/.local/node-current/bin/npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 4321,
+      "autoPort": true
+    }
+  ]
+}

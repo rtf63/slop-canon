@@ -2,7 +2,6 @@
 import PoemCard from './PoemCard.astro';
 import Receipt from './Receipt.astro';
 import { issueLabel, issueSlug, dayLabel } from '../lib/format';
-import { SUBSTACK_URL } from '../lib/site';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props { entries: CollectionEntry<'entries'>[]; }
@@ -22,8 +21,6 @@ const { entries } = Astro.props;
   ) : (
     <p class="archive-empty">The archive fills as the days go by. Come back tomorrow.</p>
   )}
-
-  <p class="archive-more"><a href={SUBSTACK_URL} target="_blank" rel="noopener">Every poem also lands in your inbox on Substack →</a></p>
 
   {/* Hidden full-content per entry, cloned into the drawer on click. Cards remain
      links to /day/NNN, so with JS off (or ⌘-click) they still open as pages. */}

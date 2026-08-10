@@ -5,6 +5,11 @@
 > reference the drawing, image model, or per-channel image rendering are from the
 > original drawing+poem concept and no longer apply; the content model is now
 > `{ issue, date, weather, dreamTheme, title, poem, caption, provenance }`.
+>
+> **Later removals:** the Substack newsletter integration (subscribe CTAs,
+> cookie-based draft automation) and the calendar (.ics) feed were all removed —
+> the site has no subscribe path; poems live on the site + RSS only. Sections
+> mentioning Substack/subscriptions are historical.
 
 
 Scope: **the website** (landing + archive surface) from the project spec. It drops

@@ -27,7 +27,7 @@
 
 *{box-sizing:border-box}
 /* offset anchor jumps so the sticky header (~71px) never covers the section
-   title you scrolled to (#shop, #todays-drop, #subscribe, …) */
+   title you scrolled to (#todays-drop, #archive, #shop, …) */
 html{scroll-behavior:smooth;scroll-padding-top:88px}
 body{
   margin:0;background:var(--cream);color:var(--ink);
@@ -51,7 +51,7 @@ header.top{position:sticky;top:0;z-index:50;background:var(--cream);border-botto
 .top-nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-family:var(--mono);font-size:13px}
 .nav-toggle{display:none;margin-left:auto;background:none;border:none;padding:6px;cursor:pointer;color:var(--ink);line-height:0;border-radius:8px}
 .nav-toggle:hover{background:var(--cream-2)}
-/* Base nav-link styling applies to text links only — NOT the .btn (Subscribe),
+/* Base nav-link styling applies to text links only — NOT any .btn in the nav,
    whose full button styling must win in every state (this selector would
    otherwise out-specify .btn and break the button's resting padding/border). */
 .top-nav a:not(.btn){text-decoration:none;padding:2px 0;border-bottom:2px solid transparent}
@@ -163,9 +163,6 @@ h1.head .rot::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.06
 .poem-card-mini .pc-more{font-family:var(--mono);font-size:11px;font-weight:700;margin-top:2px}
 .poem-card-mini[data-weather="heavy"]{background:#efe9dd;border-color:var(--muted);box-shadow:5px 5px 0 var(--muted)}
 .archive-empty{font-family:var(--serif);font-style:italic;font-size:18px;color:#4a4136;max-width:54ch;margin-top:8px;line-height:1.6}
-.archive-more{margin-top:22px;font-family:var(--mono);font-size:12.5px}
-.archive-more a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--yellow)}
-.archive-more a:hover{border-color:var(--pink)}
 
 /* archive drawer — an in-page panel; cards stay visible behind it */
 dialog.drawer{position:fixed;top:0;right:0;bottom:auto;left:auto;margin:0;
@@ -211,21 +208,6 @@ dialog.drawer::backdrop{background:rgba(36,29,22,.5)}
 .receipt .sources a:hover{color:var(--pink);border-color:var(--pink)}
 .receipt .stamp{margin-top:14px;text-align:center;color:var(--green);font-weight:700;
   border:2px solid var(--green);border-radius:8px;padding:8px;transform:rotate(-1.5deg)}
-
-/* ---------- subscribe ---------- */
-.subscribe{margin-top:70px;background:var(--blue);color:var(--cream);border:var(--edge);border-radius:22px;
-  box-shadow:8px 8px 0 var(--ink);padding:52px 30px;text-align:center;position:relative;overflow:hidden}
-.subscribe h2{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;margin:0 0 12px}
-.subscribe p{max-width:44ch;margin:0 auto 24px;opacity:.92}
-.sub-form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.sub-form input{flex:1;min-width:200px;font-family:var(--mono);font-size:14px;padding:13px 16px;
-  border:var(--edge);border-radius:999px;background:var(--cream);color:var(--ink)}
-.sub-form input::placeholder{color:var(--muted)}
-.sub-fine{font-family:var(--mono);font-size:11.5px;opacity:.8;margin-top:16px}
-.sub-doodle{position:absolute;width:120px;opacity:.9}
-.sd1{top:-16px;left:16px;transform:rotate(-12deg)}
-.sd2{bottom:-22px;right:14px;transform:rotate(10deg)}
-@media(max-width:600px){.sub-doodle{display:none}}
 
 /* ---------- archive ---------- */
 .feat{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:center;

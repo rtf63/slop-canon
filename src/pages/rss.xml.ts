@@ -6,7 +6,7 @@ const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 // Hand-rolled RSS so the site stays dependency-light. Only public (un-gated)
-// entries are syndicated in full; gated days appear as a teaser + subscribe nudge.
+// entries are syndicated in full; gated days appear as a short teaser.
 export const GET: APIRoute = async ({ site }) => {
   const base = site?.href.replace(/\/$/, '') ?? '';
   const entries = await getEntries();
@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ site }) => {
       const d = entry.data;
       const url = `${base}/day/${d.issue}`;
       const body = gated
-        ? `A poem for subscribers. Read it in the archive.`
+        ? `Read this one in the archive on the site.`
         : `${d.poem}\n\n— ${d.provenance.madeBy}`;
       return `    <item>
       <title>${esc(`${issueLabel(d.issue)} · ${d.title}`)}</title>

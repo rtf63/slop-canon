@@ -12,6 +12,8 @@ export default defineConfig({
     // Keep pretty permalinks: /day/214 -> day/214/index.html
     format: 'directory',
   },
+  // Let the dev server honor an assigned PORT (e.g. from preview tooling).
+  server: { port: Number(process.env.PORT) || 4321 },
   vite: {
     build: {
       // Never inline scripts/assets into the HTML: keeps every <script> as an

@@ -4,7 +4,6 @@ import Marquee from '../components/Marquee.astro';
 import Hero from '../components/Hero.astro';
 import EntryPlate from '../components/EntryPlate.astro';
 import Receipt from '../components/Receipt.astro';
-import SubscribeBlock from '../components/SubscribeBlock.astro';
 import PrintsBlock from '../components/PrintsBlock.astro';
 import Archive from '../components/Archive.astro';
 import { getEntries } from '../lib/entries';
@@ -43,8 +42,6 @@ const archive = entries.slice(1).map((e) => e.entry);
   <Archive entries={archive} />
 
   <PrintsBlock />
-
-  <SubscribeBlock />
 </Base>
 
 <style>

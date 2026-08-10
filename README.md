@@ -38,13 +38,12 @@ src/
   content.config.ts      Zod schema + the build-time heavy-day guard
   layouts/Base.astro     <head>, SEO/OG, header + footer shell
   components/             Header, Marquee, Hero, EntryPlate, Receipt,
-                         SubscribeBlock, ArchiveFeature, ArchiveTile,
-                         PrintsBlock, Footer, EntryArt (the drawings)
-  lib/                   entries.ts (gating rule), format.ts (labels/dates)
-  pages/                 index, day/[issue], prints, about, rss.xml
-                         (no browsable archive yet — the landing shows a
-                          "subscribers only" archive panel; ArchiveTile/
-                          ArchiveFeature stay dormant for when it returns)
+                         Archive + PoemCard (grid + in-page drawer),
+                         PrintsBlock, Footer
+  lib/                   entries.ts (gating rule), format.ts, site.ts
+  pages/                 index, day/[issue], about, rss.xml
+                         (single-page site: today's poem + archive + shop
+                          all live on the landing; no newsletter/subscribe)
   styles/global.css      design tokens + all component CSS + heavy-day drain
 ```
 

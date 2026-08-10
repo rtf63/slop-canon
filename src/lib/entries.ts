@@ -2,11 +2,9 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { byIssueDesc } from './format';
 
 /**
- * Archive gating rule (spec §4.1): the most-recent N issues are free; older
- * entries are gated for subscribers. In M1 this only drives the visual
- * "members only" treatment; real enforcement (validated against the Substack
- * subscriber list) lands at the edge in M4. `gated: true` in frontmatter can
- * force-gate any single entry regardless of recency.
+ * Archive visibility rule: the most-recent N issues are always shown in full;
+ * `gated: true` in frontmatter can mark any single entry as held back (renders
+ * as a teaser). Currently everything is public — there is no subscription.
  */
 export const PUBLIC_RECENT = 6;
 

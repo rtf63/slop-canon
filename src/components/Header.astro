@@ -1,5 +1,5 @@
 ---
-import { TIP_URL, TIP_LABEL, SUBSTACK_URL } from '../lib/site';
+import { TIP_URL, TIP_LABEL } from '../lib/site';
 interface Props { nav?: 'today' | 'prints'; }
 const { nav } = Astro.props;
 ---
@@ -28,7 +28,6 @@ const { nav } = Astro.props;
       <a href="/#archive">Archive</a>
       <a href="/#shop">Shop</a>
       <a href={TIP_URL} target="_blank" rel="noopener" title={TIP_LABEL}>Tip ☕</a>
-      <a href={SUBSTACK_URL} target="_blank" rel="noopener" class="btn pink">Subscribe →</a>
     </nav>
   </div>
 </header>
